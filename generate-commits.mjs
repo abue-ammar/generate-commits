@@ -30,6 +30,8 @@ try {
 
   for (const line of lines) {
     const [message, hash] = line.split("|");
+    // Skip merge commits
+    if (message.startsWith("Merge branch")) continue;
     summaryLines.push(`- **${message}** \`${hash}\``);
     commitLinks.push(`- ${repoUrl}/commit/${hash}`);
   }
@@ -41,7 +43,7 @@ try {
     day: "numeric",
   });
 
-  const markdown = `## 📝 Summary
+  const markdown = `## 📝 Summary ${today}
 ${summaryLines.join("\n")}
 
 ## 🔗 Commit Links
